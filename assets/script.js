@@ -23,7 +23,7 @@ async function loadJSON(path) {
 }
 
 function getCart() {
-  return JSON.parse(localStorage.getItem(storageKey) || [];
+  return JSON.parse(localStorage.getItem(storageKey) || []);
 }
 
 function saveCart(cart) {
