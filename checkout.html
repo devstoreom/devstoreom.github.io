@@ -4,45 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>إتمام الطلب • متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=1.1">
+  <link rel="stylesheet" href="assets/style.css?v=2.0">
 </head>
 <body>
   <header>
-    <h1>إتمام الطلب</h1>
-    <a href="index.html" class="back-btn">← العودة</a>
+    <div class="header-content">
+      <a href="index.html" class="back-btn">
+        <span class="back-icon">←</span>
+      </a>
+      <h1>إتمام الطلب</h1>
+      <div class="header-actions">
+        <a href="checkout.html" class="cart-btn">
+          🛒
+          <span id="cartCount" class="cart-badge"></span>
+        </a>
+      </div>
+    </div>
   </header>
-  <main class="checkout-container">
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>المنتج</th>
-          <th>الكمية</th>
-          <th>السعر (OMR)</th>
-          <th>الإجمالي</th>
-        </tr>
-      </thead>
-      <tbody id="orderTable"></tbody>
-    </table>
-    <div class="totals">
-      <p>المجموع: <strong id="totalRial">0</strong> ريال عماني</p>
-      <p>المجموع بالرصيد: <strong id="totalCredit">0</strong> ريال رصيد</p>
+  
+  <main class="checkout-page">
+    <div class="checkout-card">
+      <h2 class="checkout-title">تفاصيل الطلب</h2>
+      
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>المنتج</th>
+            <th>الكمية</th>
+            <th>السعر</th>
+            <th>الإجمالي</th>
+          </tr>
+        </thead>
+        <tbody id="orderTable"></tbody>
+      </table>
+      
+      <div class="order-summary">
+        <div class="summary-row">
+          <span>المجموع:</span>
+          <span id="totalRial" class="summary-value">0.000</span> ريال عماني
+        </div>
+        <div class="summary-row">
+          <span>المجموع بالرصيد:</span>
+          <span id="totalCredit" class="summary-value">0.000</span> ريال رصيد
+        </div>
+      </div>
     </div>
-
-    <div class="customer-info">
-      <h3>معلومات العميل</h3>
-      <input id="custName" placeholder="الاسم الثلاثي">
-      <input id="custPhone" placeholder="رقم الهاتف">
+    
+    <div class="checkout-card">
+      <h2 class="checkout-title">معلومات العميل</h2>
+      
+      <div class="form-group">
+        <input id="custName" placeholder="الاسم الثلاثي" class="form-input">
+      </div>
+      <div class="form-group">
+        <input id="custPhone" placeholder="رقم الهاتف" class="form-input">
+      </div>
     </div>
-
-    <div class="payment-method">
-      <h3>طريقة الدفع</h3>
-      <label><input type="radio" name="pay" value="bank" checked> بنك</label>
-      <label><input type="radio" name="pay" value="credit"> رصيد أوريدو</label>
+    
+    <div class="checkout-card">
+      <h2 class="checkout-title">طريقة الدفع</h2>
+      
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="pay" value="bank" checked>
+          <span class="payment-label">تحويل بنكي</span>
+        </label>
+        
+        <label class="payment-option">
+          <input type="radio" name="pay" value="credit">
+          <span class="payment-label">رصيد أوريدو</span>
+        </label>
+      </div>
     </div>
-
-    <button id="payBtn" class="btn buy">إنهاء وارسال واتساب</button>
+    
+    <button id="payBtn" class="btn primary-btn checkout-btn">
+      <span class="whatsapp-icon">📲</span> إنهاء وارسال واتساب
+    </button>
   </main>
-  <script src="assets/script.js?v=1.1"></script>
+  
+  <script src="assets/script.js?v=2.0"></script>
 </body>
 </html>
