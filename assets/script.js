@@ -1,35 +1,42 @@
-/* ======== تعديل دالة renderProductPage ======== */
+/* دالة renderProductPage معدلة */
 async function renderProductPage() {
-  const prodEl = qs('#prodDetails');
-  if (!prodEl) return;
-  
   const url = new URL(location.href);
   const id = url.searchParams.get('id');
   const data = await loadJSON('products.json');
   const p = data.find(x => x.id === id);
 
   if (!p) {
-    prodEl.textContent = 'Product not found';
+    document.body.innerHTML = '<h1 style="text-align:center">المنتج غير موجود</h1>';
     return;
   }
 
-  // التعديل الرئيسي هنا: استخدام مسار مطلق للصورة
-  const baseUrl = window.location.origin;
-  const imagePath = `${baseUrl}/${p.image}`;
-  qs('#prodImg').src = imagePath;
+  // تعيين محتوى الصفحة
+  qs('#prodImg').src = p.image;
+  qs('#prodImg').onerror = () => { 
+    qs('#prodImg').src = 'images/placeholder.jpg'; // صورة افتراضية عند الخطأ
+  };
   
-  qs('#prodName').textContent = p.name[lang.current];
-  qs('#prodPrice').textContent = `${p.price} ريال عماني`;
+  qs('#prodName').textContent = p.name['ar'] || p.name['en'];
+  qs('#prodPrice').textContent = `${p.price.toFixed(3)} ريال عماني`;
 
-  qs('#addBtn').onclick = () => addToCart(p.id, Number(qs('#qty').value));
+  // أحداث الأزرار
+  qs('#addBtn').onclick = () => {
+    addToCart(p.id, Number(qs('#qty').value));
+    alert('تمت الإضافة إلى السلة بنجاح');
+  };
+  
   qs('#buyBtn').onclick = () => {
     addToCart(p.id, Number(qs('#qty').value));
     location.href = 'checkout.html';
   };
-
-  // للتصحيح: طباعة مسار الصورة في الكونسول
-  console.log('مسار الصورة:', imagePath);
 }
 
-/* ======== باقي الكود يبقى كما هو ======== */
-// ... [بقية الدوال الموجودة في ملف script.js الأصلية] ...
+/* إضافة دالة للتحقق من الصورة */
+function checkImage(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+}
