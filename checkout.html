@@ -1,118 +1,31 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>إتمام الطلب • متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=4.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout • Dev Store</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="index.html" class="back-btn">
-        <span class="back-icon">←</span>
-      </a>
-      <h1>إتمام الطلب</h1>
-      <div class="header-actions">
-        <a href="checkout.html" class="cart-btn active">
-          🛒
-          <span id="cartCount" class="cart-badge"></span>
-        </a>
-      </div>
-    </div>
-  </header>
-  
-  <main class="checkout-page">
-    <div class="checkout-steps">
-      <div class="step active">1. السلة</div>
-      <div class="step">2. الدفع</div>
-      <div class="step">3. التأكيد</div>
-    </div>
-    
-    <div class="checkout-card">
-      <h2 class="checkout-title">
-        <span class="icon">🛍️</span>
-        <span>سلة التسوق</span>
-      </h2>
-      
-      <div class="cart-items" id="orderTable"></div>
-      
-      <div class="order-summary">
-        <div class="summary-row subtotal">
-          <span>المجموع الجزئي:</span>
-          <span id="subtotalRial">0.000</span> ريال
-        </div>
-        <div class="summary-row total">
-          <span>المجموع الكلي:</span>
-          <span id="totalRial">0.000</span> ريال عماني
-        </div>
-        <div class="summary-row credit-total">
-          <span>المجموع بالرصيد:</span>
-          <span id="totalCredit">0.000</span> ريال رصيد
-        </div>
-      </div>
-    </div>
-    
-    <div class="checkout-card customer-info">
-      <h2 class="checkout-title">
-        <span class="icon">👤</span>
-        <span>معلومات العميل</span>
-      </h2>
-      
-      <div class="form-group">
-        <label for="custName">الاسم الكامل</label>
-        <input id="custName" placeholder="الاسم الثلاثي" class="form-input">
-      </div>
-      <div class="form-group">
-        <label for="custPhone">رقم الهاتف</label>
-        <input id="custPhone" placeholder="رقم الهاتف" class="form-input" type="tel">
-      </div>
-    </div>
-    
-    <div class="checkout-card payment-methods">
-      <h2 class="checkout-title">
-        <span class="icon">💳</span>
-        <span>طريقة الدفع</span>
-      </h2>
-      
-      <div class="payment-options">
-        <label class="payment-option bank-transfer">
-          <input type="radio" name="pay" value="bank" checked>
-          <div class="payment-content">
-            <span class="payment-icon">🏦</span>
-            <div class="payment-text">
-              <span class="payment-title">تحويل بنكي</span>
-              <span class="payment-desc">تحويل مباشر إلى حساب البنك</span>
-            </div>
-          </div>
-        </label>
-        
-        <label class="payment-option credit-payment">
-          <input type="radio" name="pay" value="credit">
-          <div class="payment-content">
-            <span class="payment-icon">📱</span>
-            <div class="payment-text">
-              <span class="payment-title">رصيد أوريدو</span>
-              <span class="payment-desc">دفع عن طريق رصيد الجوال</span>
-            </div>
-          </div>
-        </label>
-      </div>
-    </div>
-    
-    <button id="payBtn" class="btn primary-btn checkout-btn">
-      <span class="icon">📲</span>
-      <span>إتمام الطلب وإرسال الواتساب</span>
-    </button>
+  <header><h1>إتمام الطلب</h1></header>
+  <main style="max-width:700px;margin:20px auto;padding:0 20px;">
+    <table style="width:100%;border-collapse:collapse;text-align:center">
+      <thead><tr><th>#</th><th>المنتج</th><th>الكمية</th><th>السعر (OMR)</th><th>الإجمالي</th></tr></thead>
+      <tbody id="orderTable"></tbody>
+    </table>
+    <p style="margin-top:20px">المجموع: <strong id="totalRial">0</strong> ريال عماني</p>
+    <p>المجموع بالرصيد (أوريدو): <strong id="totalCredit">0</strong> ريال رصيد</p>
+
+    <h3>معلومات العميل</h3>
+    <input id="custName" placeholder="الاسم الثلاثي" style="width:100%;padding:8px;margin-bottom:10px">
+    <input id="custPhone" placeholder="رقم الهاتف" style="width:100%;padding:8px;margin-bottom:10px">
+
+    <h3>طريقة الدفع</h3>
+    <label><input type="radio" name="pay" value="bank" checked> بنك</label>
+    <label style="margin-left:20px"><input type="radio" name="pay" value="credit"> رصيد أوريدو</label>
+
+    <button id="payBtn" class="btn buy" style="margin-top:20px;width:100%">إنهاء وارسال واتساب</button>
   </main>
-  
-  <footer class="checkout-footer">
-    <div class="footer-content">
-      <p>للأسئلة والاستفسارات: <a href="https://wa.me/96894390492" target="_blank">واتساب +968 9439 0492</a></p>
-      <p class="copyright">&copy; 2025 متجر ديف</p>
-    </div>
-  </footer>
-  
-  <script src="assets/script.js?v=4.0"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
