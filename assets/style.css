@@ -114,5 +114,45 @@ header {
   margin-top: auto;
 }
 
+
+/* الإشعارات */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* تأثيرات الأزرار */
+.btn:active {
+  transform: scale(0.95) !important;
+}
+
+.quantity-btn:active {
+  background: #e0e0e0 !important;
+}
+
+/* تحسينات عامة */
+.product-image-container img {
+  transition: transform 0.5s ease;
+}
+
+.product-image-container:hover img {
+  transform: scale(1.05);
+}
+
 /* باقي التنسيقات... */
 /* [يتبع باقي كود الـ CSS السابق بدون تغيير] */
