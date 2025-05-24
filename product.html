@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl"> <!-- تغيير اللغة والاتجاه -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Product • Dev Store</title>
+  <title>المنتج • متجر ديف</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <header><h1 id="storeTitle">Dev Store 🛍️</h1></header>
-  <main style="max-width:600px;margin:30px auto;padding:0 20px;">
-    <img id="prodImg" style="width:100%;border-radius:15px" alt="product" />
-    <h2 id="prodName"></h2>
-    <p id="prodPrice"></p>
-    <label>الكمية: <input id="qty" type="number" min="1" value="1" style="width:70px"></label>
-    <div style="margin-top:20px;display:flex;gap:10px;">
-      <button id="addBtn" class="btn add">أضف إلى السلة</button>
-      <button id="buyBtn" class="btn buy">شراء الآن</button>
+  <header>
+    <h1 id="storeTitle">متجر ديف 🛍️</h1>
+    <a href="index.html" class="back-btn">← العودة</a>
+  </header>
+  <main class="product-container">
+    <div class="product-image">
+      <img id="prodImg" alt="صورة المنتج" />
+    </div>
+    <div class="product-details">
+      <h2 id="prodName"></h2>
+      <p id="prodPrice" class="price"></p>
+      <div class="quantity-selector">
+        <label>الكمية:</label>
+        <input id="qty" type="number" min="1" value="1">
+      </div>
+      <div class="action-buttons">
+        <button id="addBtn" class="btn add">أضف إلى السلة</button>
+        <button id="buyBtn" class="btn buy">شراء الآن</button>
+      </div>
     </div>
   </main>
   <script src="assets/script.js"></script>
