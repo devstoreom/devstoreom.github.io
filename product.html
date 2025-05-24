@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=2.0">
+  <title>المنتج • متجر ديف</title>
+  <link rel="stylesheet" href="assets/style.css?v=4.0">
 </head>
 <body>
   <header>
     <div class="header-content">
-      <h1 id="storeTitle">متجر ديف 🛍️</h1>
+      <a href="index.html" class="back-btn">
+        <span class="back-icon">←</span>
+      </a>
+      <a href="index.html" class="logo">
+        <h1 id="storeTitle">متجر ديف 🛍️</h1>
+      </a>
       <div class="header-actions">
-        <button id="langToggle" onclick="toggleLanguage()">English</button>
         <a href="checkout.html" class="cart-btn">
           🛒
           <span id="cartCount" class="cart-badge"></span>
@@ -20,13 +24,47 @@
     </div>
   </header>
   
-  <main class="container" id="productList"></main>
+  <main class="product-page">
+    <div class="product-gallery">
+      <div class="main-image">
+        <img id="prodImg" alt="صورة المنتج" class="product-main-image">
+      </div>
+    </div>
+    
+    <div class="product-info">
+      <h2 id="prodName"></h2>
+      <div class="price-section">
+        <p id="prodPrice" class="product-price"></p>
+        <p class="tax-included">شامل الضريبة</p>
+      </div>
+      
+      <div class="quantity-control">
+        <label>الكمية:</label>
+        <div class="quantity-input-container">
+          <button class="quantity-btn minus">-</button>
+          <input id="qty" type="number" min="1" value="1" class="quantity-input">
+          <button class="quantity-btn plus">+</button>
+        </div>
+      </div>
+      
+      <div class="product-actions">
+        <button id="addBtn" class="btn primary-btn">
+          <span class="icon">🛒</span>
+          <span>أضف إلى السلة</span>
+        </button>
+        <button id="buyBtn" class="btn accent-btn">
+          <span class="icon">💳</span>
+          <span>شراء الآن</span>
+        </button>
+      </div>
+      
+      <div class="product-description">
+        <h3>وصف المنتج</h3>
+        <p id="prodDescription"></p>
+      </div>
+    </div>
+  </main>
   
-  <footer>
-    <p>واتساب: <a href="https://wa.me/96894390492" target="_blank">+968 9439 0492</a></p>
-    <p>&copy; 2025 متجر ديف</p>
-  </footer>
-  
-  <script src="assets/script.js?v=2.0"></script>
+  <script src="assets/script.js?v=4.0"></script>
 </body>
 </html>
