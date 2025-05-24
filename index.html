@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر ديف 🛍️</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>متجر ديف</title>
+  <link rel="stylesheet" href="assets/style.css?v=3.0">
 </head>
 <body>
   <header>
     <div class="header-content">
-      <a href="#" class="back-btn">←</a>
       <h1 id="storeTitle">متجر ديف 🛍️</h1>
       <div class="header-actions">
+        <button id="langToggle" onclick="toggleLanguage()">English</button>
         <a href="checkout.html" class="cart-btn">
-          🛒<span id="cartCount" class="cart-badge"></span>
+          🛒
+          <span id="cartCount" class="cart-badge"></span>
         </a>
-        <a href="#" id="langToggle" class="btn primary-btn" onclick="toggleLanguage()">English</a>
       </div>
     </div>
   </header>
-
-  <main>
-    <div class="container">
-      <div id="productList"></div>
-    </div>
-  </main>
-
+  
+  <main class="container" id="productList"></main>
+  
   <footer>
-    واتساب: <a href="https://wa.me/96894390492">+968 9439 0492</a><br>
-    © 2025 متجر ديف
+    <p>واتساب: <a href="https://wa.me/96894390492" target="_blank">+968 9439 0492</a></p>
+    <p>&copy; 2025 متجر ديف</p>
   </footer>
-
-  <script src="assets/script.js"></script>
+  
+  <script src="assets/script.js?v=3.0"></script>
 </body>
 </html>
