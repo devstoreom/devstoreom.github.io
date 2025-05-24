@@ -5,6 +5,10 @@
       "en": "Storm-Wild Pack",
       "ar": "حزمة ستورم وايلد"
     },
+    "description": {
+      "en": "Exclusive Fortnite character pack with special items",
+      "ar": "حزمة شخصيات حصرية من فورتنايت مع عناصر خاصة"
+    },
     "price": 2.5,
     "image": "images/storm-wild.jpg",
     "options": []
@@ -14,6 +18,10 @@
     "name": {
       "en": "Xerick Pack",
       "ar": "حزمة زيريك"
+    },
+    "description": {
+      "en": "LEGO Fortnite special edition pack",
+      "ar": "حزمة خاصة من ليغو فورتنايت"
     },
     "price": 2.5,
     "image": "images/xerick.jpg",
