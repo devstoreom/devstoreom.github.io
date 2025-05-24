@@ -58,7 +58,7 @@ async function renderIndex() {
   }
 
   console.log('Attempting to load products.json...');
-  const products = await loadJSON('./products.json'); // تغيير المسار ليكون متوافقًا مع GitHub Pages
+  const products = await loadJSON('/devstoreom/products.json'); // تغيير المسار ليكون متوافقًا مع GitHub Pages
   if (products.length === 0) {
     console.error('No products loaded. Check if products.json exists and is accessible.');
     list.innerHTML = '<p style="text-align:center">لا توجد منتجات لعرضها</p>';
@@ -93,7 +93,7 @@ async function renderProductPage() {
     return;
   }
 
-  const products = await loadJSON('./products.json');
+  const products = await loadJSON('/devstoreom/products.json');
   const product = products.find(p => p.id === productId);
 
   if (!product) {
@@ -138,7 +138,7 @@ async function renderCheckout() {
     return;
   }
 
-  const products = await loadJSON('./products.json');
+  const products = await loadJSON('/devstoreom/products.json');
   let total = 0;
 
   tableBody.innerHTML = '';
@@ -187,7 +187,7 @@ async function finishOrder() {
   }
 
   // تحضير رسالة الواتساب
-  const products = await loadJSON('./products.json');
+  const products = await loadJSON('/devstoreom/products.json');
   let message = `*فاتورة متجر ديف*\n\n`;
   let total = 0;
 
