@@ -1,36 +1,22 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متجر ديف 🛍️</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dev Store</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
   <header>
-    <div class="header-content">
-      <a href="#" class="back-btn">←</a>
-      <h1>متجر ديف 🛍️</h1>
-      <div class="header-actions">
-        <a href="checkout.html" class="cart-btn">
-          🛒<span id="cartCount" class="cart-badge"></span>
-        </a>
-        <a href="#" id="langToggle" class="btn primary-btn" onclick="toggleLanguage()">English</a>
-      </div>
-    </div>
+    <h1 id="storeTitle">Dev Store 🛍️</h1>
+    <button id="langToggle" onclick="toggleLanguage()">عربي</button>
+    <a href="checkout.html" style="color:#fff;text-decoration:none;font-weight:700">🛒 <span id="cartCount" class="cart-count"></span></a>
   </header>
-
-  <main>
-    <div class="container">
-      <div id="productList"></div>
-    </div>
-  </main>
-
+  <main class="container" id="productList"></main>
   <footer>
-    للتواصل عبر الواتساب: <a href="https://wa.me/96894390492">+968 9439 0492</a><br>
-    © 2025 متجر ديف. جميع الحقوق محفوظة
+    <p>📱 WhatsApp: <a href="https://wa.me/96894390492" target="_blank">+968 9439 0492</a></p>
+    <p>&copy; 2025 Dev Store</p>
   </footer>
-
   <script src="assets/script.js"></script>
 </body>
 </html>
