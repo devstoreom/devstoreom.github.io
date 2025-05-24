@@ -72,4 +72,164 @@ async function renderProductPage() {
   const product = products.find(p => p.id === productId);
 
   if (!product) {
-    qs('main').inner
+    qs('main').innerHTML = '<h2 style="text-align:center">المنتج غير موجود</h2>';
+    return;
+  }
+
+  // عرض بيانات المنتج
+  qs('#prodImg').src = product.image;
+  qs('#prodName').textContent = product.name[lang.current];
+  qs('#prodPrice').textContent = `${product.price.toFixed(3)} ريال عماني`;
+
+  // أحداث الأزرار
+  qs('#addBtn').onclick = () => {
+    const quantity = parseInt(qs('#qty').value) || 1;
+    addToCart(product.id, quantity);
+    alert(lang.current === 'ar' ? 'تمت الإضافة إلى السلة' : 'Added to cart');
+  };
+
+  qs('#buyBtn').onclick = () => {
+    const quantity = parseInt(qs('#qty').value) || 1;
+    addToCart(product.id, quantity);
+    window.location.href = 'checkout.html';
+  };
+}
+
+/* ======== صفحة الدفع ======== */
+async function renderCheckout() {
+  const tableBody = qs('#orderTable');
+  if (!tableBody) return;
+
+  const cart = getCart();
+  if (cart.length === 0) {
+    tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center">السلة فارغة</td></tr>';
+    return;
+  }
+
+  const products = await loadJSON('products.json');
+  let total = 0;
+
+  tableBody.innerHTML = '';
+  cart.forEach((item, index) => {
+    const product = products.find(p => p.id === item.id);
+    if (!product) return;
+
+    const subtotal = product.price * item.qty;
+    total += subtotal;
+
+    tableBody.insertAdjacentHTML('beforeend', `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${product.name[lang.current]}</td>
+        <td>${item.qty}</td>
+        <td>${product.price.toFixed(3)}</td>
+        <td>${subtotal.toFixed(3)}</td>
+      </tr>
+    `);
+  });
+
+  qs('#totalRial').textContent = total.toFixed(3);
+  qs('#totalCredit').textContent = (total / 0.8).toFixed(3);
+
+  qs('#payBtn').onclick = finishOrder;
+}
+
+/* ======== إتمام الطلب ======== */
+async function finishOrder() {
+  const name = qs('#custName').value.trim();
+  const phone = qs('#custPhone').value.trim();
+  const paymentMethod = qs('input[name="pay"]:checked').value;
+  const cart = getCart();
+
+  // التحقق من البيانات
+  if (!name || !phone) {
+    alert(lang.current === 'ar' ? 'الرجاء إدخال الاسم ورقم الهاتف' : 'Please enter name and phone');
+    return;
+  }
+
+  if (!/^[0-9]{8,}$/.test(phone)) {
+    alert(lang.current === 'ar' ? 'رقم الهاتف غير صحيح' : 'Invalid phone number');
+    return;
+  }
+
+  // تحضير رسالة الواتساب
+  const products = await loadJSON('products.json');
+  let message = `فاتورة متجر ديف\n\n`;
+  let total = 0;
+
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    if (!product) return;
+
+    const subtotal = product.price * item.qty;
+    total += subtotal;
+
+    message += `- ${product.name[lang.current]}\n`;
+    message += `  الكمية: ${item.qty}\n`;
+    message += `  السعر: ${product.price.toFixed(3)} ر.ع.\n`;
+    message += `  الإجمالي: ${subtotal.toFixed(3)} ر.ع.\n\n`;
+  });
+
+  message += `المجموع الكلي: ${total.toFixed(3)} ريال عماني\n`;
+  message += `طريقة الدفع: ${paymentMethod === 'bank' ? 'تحويل بنكي' : 'رصيد أوريدو'}\n\n`;
+  message += `معلومات العميل:\n`;
+  message += `الاسم: ${name}\n`;
+  message += `الهاتف: ${phone}`;
+
+  // إرسال الرسالة
+  const encodedMessage = encodeURIComponent(message);
+  window.open(`https://wa.me/${storePhone}?text=${encodedMessage}`, '_blank');
+
+  // تفريغ السلة
+  localStorage.removeItem(storageKey);
+  setTimeout(() => window.location.href = 'index.html', 1000);
+}
+
+/* ======== إدارة السلة ======== */
+function addToCart(productId, quantity = 1) {
+  const cart = getCart();
+  const existingItem = cart.find(item => item.id === productId);
+
+  if (existingItem) {
+    existingItem.qty += quantity;
+  } else {
+    cart.push({ id: productId, qty: quantity });
+  }
+
+  saveCart(cart);
+  renderCartCount();
+}
+
+/* ======== تبديل اللغة ======== */
+function toggleLanguage() {
+  lang.current = lang.current === 'ar' ? 'en' : 'ar';
+  qs('#langToggle').textContent = lang.current === 'ar' ? 'English' : 'عربي';
+  qs('#storeTitle').textContent = lang.current === 'ar' ? 'متجر ديف' : 'Dev Store 🛍️';
+  
+  // إعادة تحميل المحتوى حسب اللغة
+  if (window.location.pathname.includes('index.html')) {
+    renderIndex();
+  } else if (window.location.pathname.includes('product.html')) {
+    renderProductPage();
+  } else if (window.location.pathname.includes('checkout.html')) {
+    renderCheckout();
+  }
+}
+
+/* ======== التنقل بين الصفحات ======== */
+function openProduct(productId) {
+  window.location.href = `product.html?id=${productId}`;
+}
+
+/* ======== تهيئة الصفحة عند التحميل ======== */
+document.addEventListener('DOMContentLoaded', () => {
+  renderCartCount();
+  
+  if (window.location.pathname.includes('index.html')) {
+    renderIndex();
+  } else if (window.location.pathname.includes('product.html')) {
+    renderProductPage();
+  } else if (window.location.pathname.includes('checkout.html')) {
+    renderCheckout();
+  }
+});
