@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>المنتج • متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=2.0">
+  <link rel="stylesheet" href="assets/style.css?v=3.0">
 </head>
 <body>
   <header>
@@ -33,16 +33,24 @@
       
       <div class="quantity-control">
         <label>الكمية:</label>
-        <input id="qty" type="number" min="1" value="1" class="quantity-input">
+        <div class="quantity-input-container">
+          <button class="quantity-btn minus">-</button>
+          <input id="qty" type="number" min="1" value="1" class="quantity-input">
+          <button class="quantity-btn plus">+</button>
+        </div>
       </div>
       
       <div class="product-actions">
-        <button id="addBtn" class="btn primary-btn">أضف إلى السلة</button>
-        <button id="buyBtn" class="btn accent-btn">شراء الآن</button>
+        <button id="addBtn" class="btn primary-btn">
+          <span class="cart-icon">🛒</span> أضف إلى السلة
+        </button>
+        <button id="buyBtn" class="btn accent-btn">
+          <span class="buy-icon">💳</span> شراء الآن
+        </button>
       </div>
     </div>
   </main>
   
-  <script src="assets/script.js?v=2.0"></script>
+  <script src="assets/script.js?v=3.0"></script>
 </body>
 </html>
