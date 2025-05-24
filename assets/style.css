@@ -1,131 +1,104 @@
-/* الأساسيات */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* تحسينات جديدة */
+/* 1. تحسين صور المنتجات في الصفحة الرئيسية */
+.product img {
+  width: 100%;
+  height: 200px; /* ارتفاع ثابت */
+  object-fit: cover; /* تغطية المساحة دون تشويه */
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.3s;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #f0f0fa, #e8e6f9);
-  color: #333;
-  line-height: 1.6;
+/* 2. زر العودة المميز */
+.back-btn {
+  background: white;
+  color: #7B3FD3 !important;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
-/* الهيدر */
-header {
-  background: #7B3FD3;
-  color: #fff;
+/* 3. تحسينات صفحة الدفع */
+.checkout-container {
+  background: #f9f5ff;
   padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(123, 63, 211, 0.1);
+}
+
+.checkout-container h3 {
+  color: #7B3FD3;
+  margin: 15px 0 10px;
+}
+
+/* 4. زر السلة المميز */
+.cart-link {
+  background: white;
+  padding: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* الصفحة الرئيسية */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 30px 20px;
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.product {
-  background: #fff;
-  border-radius: 15px;
-  padding: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.1);
-  transition: transform .3s, box-shadow .3s;
-}
-
-.product:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,.15);
-}
-
-/* صفحة المنتج */
-.product-container {
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e91e63;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
 }
 
-.product-image img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: contain;
+/* 5. أزرار الدفع المنسقة */
+.payment-method {
+  background: white;
+  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  margin: 15px 0;
 }
 
-/* صفحة الدفع */
-.checkout-container {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 0 20px;
+.payment-method label {
+  margin-left: 15px;
+  cursor: pointer;
 }
 
+/* 6. تحسين الجدول في صفحة الدفع */
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-/* الأزرار */
-.btn {
-  display: block;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-}
-
-.btn.add {
+table th {
   background: #7B3FD3;
-  color: #fff;
+  color: white;
+  padding: 12px;
 }
 
-.btn.buy {
-  background: #28a745;
-  color: #fff;
+table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-/* التذييل */
-footer {
-  background: #f1f1f1;
-  margin-top: 40px;
-  padding: 20px;
-  text-align: center;
-  color: #444;
-}
-
-/* RTL إضافات لاتجاه */
-[dir="rtl"] {
-  text-align: right;
-}
-
-.back-btn {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-}
-
-.cart-count {
-  background: #e91e63;
-  color: #fff;
-  padding: 2px 6px;
-  border-radius: 50%;
-  font-size: .8rem;
-  margin-left: 4px;
+table tr:last-child td {
+  border-bottom: none;
 }
