@@ -1,42 +1,75 @@
-/* دالة renderProductPage معدلة */
-async function renderProductPage() {
-  const url = new URL(location.href);
-  const id = url.searchParams.get('id');
-  const data = await loadJSON('products.json');
-  const p = data.find(x => x.id === id);
+/* ======== المتغيرات العامة ======== */
+const storePhone = '96894390492';
+const storageKey = 'dev_cart_v2';
+const lang = { current: 'ar' };
 
-  if (!p) {
-    document.body.innerHTML = '<h1 style="text-align:center">المنتج غير موجود</h1>';
+/* ======== دوال مساعدة ======== */
+function qs(q, c = document) { return c.querySelector(q) }
+function qsa(q, c = document) { return [...c.querySelectorAll(q)] }
+
+async function loadJSON(path) {
+  try {
+    const response = await fetch(path);
+    return await response.json();
+  } catch (error) {
+    console.error('Error loading JSON:', error);
+    return [];
+  }
+}
+
+function getCart() {
+  return JSON.parse(localStorage.getItem(storageKey) || '[]');
+}
+
+function saveCart(cart) {
+  localStorage.setItem(storageKey, JSON.stringify(cart));
+}
+
+function cartCount() {
+  return getCart().reduce((sum, item) => sum + item.qty, 0);
+}
+
+function renderCartCount() {
+  const badge = qs('#cartCount');
+  if (badge) badge.textContent = cartCount() || '';
+}
+
+/* ======== الصفحة الرئيسية ======== */
+async function renderIndex() {
+  const list = qs('#productList');
+  if (!list) return;
+
+  const data = await loadJSON('products.json');
+  list.innerHTML = '';
+
+  data.forEach(product => {
+    list.insertAdjacentHTML('beforeend', `
+      <div class="product">
+        <img src="${product.image}" alt="${product.name[lang.current]}" onclick="openProduct('${product.id}')">
+        <h3>${product.name[lang.current]}</h3>
+        <p class="price">${product.price.toFixed(3)} ريال عماني</p>
+        <button class="btn add" onclick="addToCart('${product.id}', 1)">
+          ${lang.current === 'ar' ? 'أضف إلى السلة' : 'Add to Cart'}
+        </button>
+      </div>
+    `);
+  });
+
+  renderCartCount();
+}
+
+/* ======== صفحة المنتج ======== */
+async function renderProductPage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+  
+  if (!productId) {
+    qs('main').innerHTML = '<h2 style="text-align:center">المنتج غير موجود</h2>';
     return;
   }
 
-  // تعيين محتوى الصفحة
-  qs('#prodImg').src = p.image;
-  qs('#prodImg').onerror = () => { 
-    qs('#prodImg').src = 'images/placeholder.jpg'; // صورة افتراضية عند الخطأ
-  };
-  
-  qs('#prodName').textContent = p.name['ar'] || p.name['en'];
-  qs('#prodPrice').textContent = `${p.price.toFixed(3)} ريال عماني`;
+  const products = await loadJSON('products.json');
+  const product = products.find(p => p.id === productId);
 
-  // أحداث الأزرار
-  qs('#addBtn').onclick = () => {
-    addToCart(p.id, Number(qs('#qty').value));
-    alert('تمت الإضافة إلى السلة بنجاح');
-  };
-  
-  qs('#buyBtn').onclick = () => {
-    addToCart(p.id, Number(qs('#qty').value));
-    location.href = 'checkout.html';
-  };
-}
-
-/* إضافة دالة للتحقق من الصورة */
-function checkImage(url) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = url;
-  });
-}
+  if (!product) {
+    qs('main').inner
