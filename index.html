@@ -4,24 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=1.1">
+  <link rel="stylesheet" href="assets/style.css?v=2.0">
 </head>
 <body>
   <header>
-  <h1 id="storeTitle">متجر ديف 🛍️</h1>
-  <div style="display: flex; gap: 10px; align-items: center;">
-    <button id="langToggle" onclick="toggleLanguage()">English</button>
-    <a href="checkout.html" class="cart-link">
-      🛒
-      <span id="cartCount"></span>
-    </a>
-  </div>
-</header>
+    <div class="header-content">
+      <h1 id="storeTitle">متجر ديف 🛍️</h1>
+      <div class="header-actions">
+        <button id="langToggle" onclick="toggleLanguage()">English</button>
+        <a href="checkout.html" class="cart-btn">
+          🛒
+          <span id="cartCount" class="cart-badge"></span>
+        </a>
+      </div>
+    </div>
+  </header>
+  
   <main class="container" id="productList"></main>
+  
   <footer>
     <p>واتساب: <a href="https://wa.me/96894390492" target="_blank">+968 9439 0492</a></p>
     <p>&copy; 2025 متجر ديف</p>
   </footer>
-  <script src="assets/script.js?v=1.1"></script>
+  
+  <script src="assets/script.js?v=2.0"></script>
 </body>
 </html>
