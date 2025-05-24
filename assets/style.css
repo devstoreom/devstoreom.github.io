@@ -1,1 +1,54 @@
-*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(to right,#f0f0fa,#e8e6f9);color:#333}header{background:#7B3FD3;color:#fff;padding:20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000}header h1{margin:0;font-size:1.8rem}#langToggle{background:#fff;color:#7B3FD3;border:none;padding:6px 12px;border-radius:20px;font-weight:700;cursor:pointer}main.container{max-width:900px;margin:0 auto;padding:30px 20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}.product{background:#fff;border-radius:15px;padding:15px;box-shadow:0 8px 20px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s}.product:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.15)}.product img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}.product h3{margin:10px 0 6px;font-size:1.1rem}.product p{margin:5px 0;color:#555}.btn{display:block;width:100%;padding:10px;border:none;border-radius:5px;font-weight:700;font-size:1rem;cursor:pointer}button.add{background:#7B3FD3;color:#fff}.btn.buy{background:#28a745;color:#fff}.btn.disabled{opacity:.5;pointer-events:none}footer{background:#f1f1f1;margin-top:40px;padding:20px;text-align:center;color:#444;font-size:.9rem}footer a{color:#7B3FD3;font-weight:700;text-decoration:none}footer a:hover{text-decoration:underline}.cart-count{background:#e91e63;color:#fff;padding:2px 6px;border-radius:50%;font-size:.8rem;margin-left:4px}
+/* إضافات جديدة */
+.product-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.product-image img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.product-details {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.price {
+  font-size: 1.5rem;
+  color: #7B3FD3;
+  font-weight: bold;
+}
+
+.quantity-selector {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-selector input {
+  padding: 8px;
+  width: 70px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.back-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
