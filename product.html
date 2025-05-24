@@ -1,70 +1,23 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>المنتج • متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=4.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product • Dev Store</title>
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="index.html" class="back-btn">
-        <span class="back-icon">←</span>
-      </a>
-      <a href="index.html" class="logo">
-        <h1 id="storeTitle">متجر ديف 🛍️</h1>
-      </a>
-      <div class="header-actions">
-        <a href="checkout.html" class="cart-btn">
-          🛒
-          <span id="cartCount" class="cart-badge"></span>
-        </a>
-      </div>
-    </div>
-  </header>
-  
-  <main class="product-page">
-    <div class="product-gallery">
-      <div class="main-image">
-        <img id="prodImg" alt="صورة المنتج" class="product-main-image">
-      </div>
-    </div>
-    
-    <div class="product-info">
-      <h2 id="prodName"></h2>
-      <div class="price-section">
-        <p id="prodPrice" class="product-price"></p>
-        <p class="tax-included">شامل الضريبة</p>
-      </div>
-      
-      <div class="quantity-control">
-        <label>الكمية:</label>
-        <div class="quantity-input-container">
-          <button class="quantity-btn minus">-</button>
-          <input id="qty" type="number" min="1" value="1" class="quantity-input">
-          <button class="quantity-btn plus">+</button>
-        </div>
-      </div>
-      
-      <div class="product-actions">
-        <button id="addBtn" class="btn primary-btn">
-          <span class="icon">🛒</span>
-          <span>أضف إلى السلة</span>
-        </button>
-        <button id="buyBtn" class="btn accent-btn">
-          <span class="icon">💳</span>
-          <span>شراء الآن</span>
-        </button>
-      </div>
-      
-      <div class="product-description">
-        <h3>وصف المنتج</h3>
-        <p id="prodDescription"></p>
-      </div>
+  <header><h1 id="storeTitle">Dev Store 🛍️</h1></header>
+  <main style="max-width:600px;margin:30px auto;padding:0 20px;">
+    <img id="prodImg" style="width:100%;border-radius:15px" alt="product" />
+    <h2 id="prodName"></h2>
+    <p id="prodPrice"></p>
+    <label>الكمية: <input id="qty" type="number" min="1" value="1" style="width:70px"></label>
+    <div style="margin-top:20px;display:flex;gap:10px;">
+      <button id="addBtn" class="btn add">أضف إلى السلة</button>
+      <button id="buyBtn" class="btn buy">شراء الآن</button>
     </div>
   </main>
-  
-  <script src="assets/script.js?v=4.0"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
