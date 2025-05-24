@@ -4,30 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>المنتج • متجر ديف</title>
-  <link rel="stylesheet" href="assets/style.css?v=1.1">
+  <link rel="stylesheet" href="assets/style.css?v=2.0">
 </head>
 <body>
   <header>
-  <h1 id="storeTitle">متجر ديف 🛍️</h1>
-  <a href="index.html" class="back-btn">←</a>
-</header>
-  <main class="product-container">
-    <div class="product-image">
-      <img id="prodImg" alt="صورة المنتج">
+    <div class="header-content">
+      <a href="index.html" class="back-btn">
+        <span class="back-icon">←</span>
+      </a>
+      <h1 id="storeTitle">متجر ديف 🛍️</h1>
+      <div class="header-actions">
+        <a href="checkout.html" class="cart-btn">
+          🛒
+          <span id="cartCount" class="cart-badge"></span>
+        </a>
+      </div>
     </div>
+  </header>
+  
+  <main class="product-page">
+    <div class="product-image-container">
+      <img id="prodImg" alt="صورة المنتج" class="product-main-image">
+    </div>
+    
     <div class="product-details">
       <h2 id="prodName"></h2>
-      <p id="prodPrice" class="price"></p>
-      <div class="quantity-selector">
+      <p id="prodPrice" class="product-price"></p>
+      
+      <div class="quantity-control">
         <label>الكمية:</label>
-        <input id="qty" type="number" min="1" value="1">
+        <input id="qty" type="number" min="1" value="1" class="quantity-input">
       </div>
-      <div class="action-buttons">
-        <button id="addBtn" class="btn add">أضف إلى السلة</button>
-        <button id="buyBtn" class="btn buy">شراء الآن</button>
+      
+      <div class="product-actions">
+        <button id="addBtn" class="btn primary-btn">أضف إلى السلة</button>
+        <button id="buyBtn" class="btn accent-btn">شراء الآن</button>
       </div>
     </div>
   </main>
-  <script src="assets/script.js?v=1.1"></script>
+  
+  <script src="assets/script.js?v=2.0"></script>
 </body>
 </html>
