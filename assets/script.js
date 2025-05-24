@@ -1,11 +1,16 @@
 /* ======== المتغيرات العامة ======== */
 const storePhone = '96894390492';
-const storageKey = 'dev_cart_v2';
+const storageKey = 'dev_cart_v3';
 const lang = { current: 'ar' };
 
 /* ======== دوال مساعدة ======== */
-function qs(q, c = document) { return c.querySelector(q) }
-function qsa(q, c = document) { return [...c.querySelectorAll(q)] }
+function qs(selector, parent = document) {
+  return parent.querySelector(selector);
+}
+
+function qsa(selector, parent = document) {
+  return [...parent.querySelectorAll(selector)];
+}
 
 async function loadJSON(path) {
   try {
@@ -18,7 +23,7 @@ async function loadJSON(path) {
 }
 
 function getCart() {
-  return JSON.parse(localStorage.getItem(storageKey) || '[]');
+  return JSON.parse(localStorage.getItem(storageKey) || [];
 }
 
 function saveCart(cart) {
@@ -30,8 +35,11 @@ function cartCount() {
 }
 
 function renderCartCount() {
-  const badge = qs('#cartCount');
-  if (badge) badge.textContent = cartCount() || '';
+  const badges = qsa('#cartCount');
+  badges.forEach(badge => {
+    badge.textContent = cartCount() || '';
+    badge.style.display = cartCount() > 0 ? 'flex' : 'none';
+  });
 }
 
 /* ======== الصفحة الرئيسية ======== */
@@ -39,18 +47,17 @@ async function renderIndex() {
   const list = qs('#productList');
   if (!list) return;
 
-  const data = await loadJSON('products.json');
+  const products = await loadJSON('products.json');
   list.innerHTML = '';
 
-  data.forEach(product => {
+  products.forEach(product => {
     list.insertAdjacentHTML('beforeend', `
-      <div class="product">
-        <img src="${product.image}" alt="${product.name[lang.current]}" onclick="openProduct('${product.id}')">
-        <h3>${product.name[lang.current]}</h3>
-        <p class="price">${product.price.toFixed(3)} ريال عماني</p>
-        <button class="btn add" onclick="addToCart('${product.id}', 1)">
-          ${lang.current === 'ar' ? 'أضف إلى السلة' : 'Add to Cart'}
-        </button>
+      <div class="product" onclick="openProduct('${product.id}')">
+        <img src="${product.image}" alt="${product.name[lang.current]}">
+        <div class="product-info">
+          <h3>${product.name[lang.current]}</h3>
+          <p class="price">${product.price.toFixed(3)} ريال عماني</p>
+        </div>
       </div>
     `);
   });
@@ -86,6 +93,7 @@ async function renderProductPage() {
     const quantity = parseInt(qs('#qty').value) || 1;
     addToCart(product.id, quantity);
     alert(lang.current === 'ar' ? 'تمت الإضافة إلى السلة' : 'Added to cart');
+    renderCartCount();
   };
 
   qs('#buyBtn').onclick = () => {
@@ -93,6 +101,8 @@ async function renderProductPage() {
     addToCart(product.id, quantity);
     window.location.href = 'checkout.html';
   };
+
+  renderCartCount();
 }
 
 /* ======== صفحة الدفع ======== */
@@ -132,6 +142,7 @@ async function renderCheckout() {
   qs('#totalCredit').textContent = (total / 0.8).toFixed(3);
 
   qs('#payBtn').onclick = finishOrder;
+  renderCartCount();
 }
 
 /* ======== إتمام الطلب ======== */
@@ -154,9 +165,14 @@ async function finishOrder() {
 
   // تحضير رسالة الواتساب
   const products = await loadJSON('products.json');
-  let message = `فاتورة متجر ديف\n\n`;
+  let message = `*فاتورة متجر ديف*\n\n`;
   let total = 0;
 
+  message += `*معلومات العميل*\n`;
+  message += `الاسم: ${name}\n`;
+  message += `الهاتف: ${phone}\n\n`;
+  
+  message += `*تفاصيل الطلب*\n`;
   cart.forEach(item => {
     const product = products.find(p => p.id === item.id);
     if (!product) return;
@@ -170,11 +186,11 @@ async function finishOrder() {
     message += `  الإجمالي: ${subtotal.toFixed(3)} ر.ع.\n\n`;
   });
 
-  message += `المجموع الكلي: ${total.toFixed(3)} ريال عماني\n`;
-  message += `طريقة الدفع: ${paymentMethod === 'bank' ? 'تحويل بنكي' : 'رصيد أوريدو'}\n\n`;
-  message += `معلومات العميل:\n`;
-  message += `الاسم: ${name}\n`;
-  message += `الهاتف: ${phone}`;
+  message += `*المجموع الكلي*\n`;
+  message += `${total.toFixed(3)} ريال عماني\n\n`;
+  message += `*طريقة الدفع*\n`;
+  message += `${paymentMethod === 'bank' ? 'تحويل بنكي' : 'رصيد أوريدو'}\n\n`;
+  message += `شكراً لثقتكم بمتجر ديف ❤️`;
 
   // إرسال الرسالة
   const encodedMessage = encodeURIComponent(message);
@@ -204,7 +220,7 @@ function addToCart(productId, quantity = 1) {
 function toggleLanguage() {
   lang.current = lang.current === 'ar' ? 'en' : 'ar';
   qs('#langToggle').textContent = lang.current === 'ar' ? 'English' : 'عربي';
-  qs('#storeTitle').textContent = lang.current === 'ar' ? 'متجر ديف' : 'Dev Store 🛍️';
+  qs('#storeTitle').textContent = lang.current === 'ar' ? 'متجر ديف 🛍️' : 'Dev Store 🛍️';
   
   // إعادة تحميل المحتوى حسب اللغة
   if (window.location.pathname.includes('index.html')) {
