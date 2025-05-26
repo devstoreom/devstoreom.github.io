@@ -1,1 +1,40 @@
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(to right,#f0f0fa,#e8e6f9);color:#333}header{background:#7B3FD3;color:#fff;padding:20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000}header h1{margin:0;font-size:1.8rem}#langToggle{background:#fff;color:#7B3FD3;border:none;padding:6px 12px;border-radius:20px;font-weight:700;cursor:pointer}main.container{max-width:900px;margin:0 auto;padding:30px 20px;display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}.product{background:#fff;border-radius:15px;padding:15px;box-shadow:0 8px 20px rgba(0,0,0,.1);transition:transform .3s,box-shadow .3s}.product:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,.15)}.product img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px}.product h3{margin:10px 0 6px;font-size:1.1rem}.product p{margin:5px 0;color:#555}.btn{display:block;width:100%;padding:10px;border:none;border-radius:5px;font-weight:700;font-size:1rem;cursor:pointer}button.add{background:#7B3FD3;color:#fff}.btn.buy{background:#28a745;color:#fff}.btn.disabled{opacity:.5;pointer-events:none}footer{background:#f1f1f1;margin-top:40px;padding:20px;text-align:center;color:#444;font-size:.9rem}footer a{color:#7B3FD3;font-weight:700;text-decoration:none}footer a:hover{text-decoration:underline}.cart-count{background:#e91e63;color:#fff;padding:2px 6px;border-radius:50%;font-size:.8rem;margin-left:4px}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
