@@ -1,16 +1,16 @@
 [
   {
-    "id": "storm",
-    "name": { "en": "storm‑wild pack", "ar": "حزمة ستورم وايلد" },
-    "price": 2.5,
-    "image": "images/storm-wild.jpg",
-    "options": []
+    "id": 1,
+    "name": "Storm Wild",
+    "description": "A thrilling book full of adventure.",
+    "price": 29.99,
+    "image": "images/storm-wild.jpg"
   },
   {
-    "id": "xerick",
-    "name": { "en": "Xerick pack", "ar": "حزمة زيريك" },
-    "price": 2.5,
-    "image": "images/xerick.jpg",
-    "options": []
+    "id": 2,
+    "name": "Xerick",
+    "description": "Explore the unknown with Xerick.",
+    "price": 24.99,
+    "image": "images/xerick.jpg"
   }
 ]
