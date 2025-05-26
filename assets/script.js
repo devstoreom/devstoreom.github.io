@@ -1,29 +1,44 @@
-/* ======== helpers ======== */
-const storePhone = '96894390492';
-const storageKey = 'dev_cart_v1';
-const lang = { current: 'en' };
+document.addEventListener("DOMContentLoaded", () => {
+  const productList = document.getElementById("product-list");
+  const productDetail = document.getElementById("product-detail");
 
-function qs(q,   c=document){return c.querySelector(q)}
-function qsa(q,  c=document){return [...c.querySelectorAll(q)]}
+  fetch("products.json")
+    .then(response => response.json())
+    .then(products => {
+      if (productList) {
+        products.forEach(product => {
+          const div = document.createElement("div");
+          div.innerHTML = `
+            <h2>${product.name}</h2>
+            <p>${product.description}</p>
+            <img src="${product.image}" alt="${product.name}" width="200">
+            <p>Price: $${product.price}</p>
+            <a href="product.html?id=${product.id}">View</a>
+          `;
+          productList.appendChild(div);
+        });
+      }
 
-function loadJSON(path){return fetch(path).then(r=>r.json())}
-function getCart(){return JSON.parse(localStorage.getItem(storageKey) || '[]')}
-function saveCart(cart){localStorage.setItem(storageKey, JSON.stringify(cart))}
-function cartCount(){return getCart().reduce((s,i)=>s+i.qty,0)}
-function renderCartCount(){const badge=qs('#cartCount');if(badge)badge.textContent=cartCount()||''}
+      if (productDetail) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        const product = products.find(p => p.id == id);
 
-/* ======== product list (index.html) ======== */
-async function renderIndex(){const list=qs('#productList');if(!list)return;const data=await loadJSON('products.json');list.innerHTML='';data.forEach(p=>{list.insertAdjacentHTML('beforeend',`
-  <div class="product">
-    <img src="${p.image}" alt="${p.name[lang.current]}" onclick="openProduct('${p.id}')"/>
-    <h3>${p.name[lang.current]}</h3>
-    <p>${p.price} ريال عماني</p>
-    <button class="btn add" onclick="addToCart('${p.id}',1)">${lang.current==='ar'?'أضف إلى السلة':'Add to Cart'} <span class="cart-count"></span></button>
-  </div>
-`)});renderCartCount()}
-
-/* ======== open product page ======== */
-function openProduct(id){location.href=`product.html?id=${id}`}
-
-/* ======== add to cart ======== */
-async function addToCart(id,qty, chosenOptions={}){const data=await loadJSON('products.json');const prod=data.find(p=>p.id===id);if(!prod)return; const cart=getCart();const existing=cart.find(i=>i.id===id && JSON.stringify(i.opt
+        if (product) {
+          productDetail.innerHTML = `
+            <h2>${product.name}</h2>
+            <img src="${product.image}" alt="${product.name}" width="300">
+            <p>${product.description}</p>
+            <p>Price: $${product.price}</p>
+          `;
+        } else {
+          productDetail.innerHTML = "<p>Product not found.</p>";
+        }
+      }
+    })
+    .catch(error => {
+      console.error("Error loading products:", error);
+      if (productList) productList.innerHTML = "<p>Failed to load products.</p>";
+      if (productDetail) productDetail.innerHTML = "<p>Failed to load product details.</p>";
+    });
+});
