@@ -1,20 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Store 1</title>
-  <link rel="stylesheet" href="assets/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevStoreOM</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
   <header>
-    <h1>Welcome to My Store</h1>
+    <h1>مرحباً بكم في DevStoreOM</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="product.html">المنتجات</a></li>
+        <li><a href="checkout.html">الدفع</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
-    <section id="product-list"></section>
+    <section class="intro">
+      <h2>أفضل المنتجات التقنية</h2>
+      <p>نقدم لك مجموعة متنوعة من المنتجات بأسعار منافسة وجودة عالية.</p>
+    </section>
+
+    <section class="products">
+      <!-- مثال منتج -->
+      <div class="product">
+        <img src="images/sample-product.jpg" alt="منتج تقني">
+        <h3>سماعات بلوتوث</h3>
+        <p>سعر: 15 ريال</p>
+        <a href="product.html">عرض التفاصيل</a>
+      </div>
+      <!-- يمكنك تكرار كود المنتج هنا لباقي المنتجات -->
+    </section>
   </main>
+
+  <footer>
+    <p>&copy; 2025 DevStoreOM. جميع الحقوق محفوظة.</p>
+  </footer>
 
   <script src="assets/script.js"></script>
 </body>
+
 </html>
