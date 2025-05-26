@@ -2,30 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Checkout • Dev Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <header><h1>إتمام الطلب</h1></header>
-  <main style="max-width:700px;margin:20px auto;padding:0 20px;">
-    <table style="width:100%;border-collapse:collapse;text-align:center">
-      <thead><tr><th>#</th><th>المنتج</th><th>الكمية</th><th>السعر (OMR)</th><th>الإجمالي</th></tr></thead>
-      <tbody id="orderTable"></tbody>
-    </table>
-    <p style="margin-top:20px">المجموع: <strong id="totalRial">0</strong> ريال عماني</p>
-    <p>المجموع بالرصيد (أوريدو): <strong id="totalCredit">0</strong> ريال رصيد</p>
+  <header>
+    <h1>Checkout</h1>
+  </header>
 
-    <h3>معلومات العميل</h3>
-    <input id="custName" placeholder="الاسم الثلاثي" style="width:100%;padding:8px;margin-bottom:10px">
-    <input id="custPhone" placeholder="رقم الهاتف" style="width:100%;padding:8px;margin-bottom:10px">
+  <main>
+    <section>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required /><br />
 
-    <h3>طريقة الدفع</h3>
-    <label><input type="radio" name="pay" value="bank" checked> بنك</label>
-    <label style="margin-left:20px"><input type="radio" name="pay" value="credit"> رصيد أوريدو</label>
+        <label for="address">Address:</label>
+        <input type="text" id="address" required /><br />
 
-    <button id="payBtn" class="btn buy" style="margin-top:20px;width:100%">إنهاء وارسال واتساب</button>
+        <button type="submit">Pay Now</button>
+      </form>
+    </section>
   </main>
-  <script src="assets/script.js"></script>
 </body>
 </html>
