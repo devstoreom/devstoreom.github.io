@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>الأقسام - متجر dev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="main-header">
+    <div class="logo-area">
+      <a href="index.html" class="logo-link">
+        <img src="assets/logo.png" alt="شعار متجر dev" class="logo-img" />
+        <span class="logo-text">متجر dev</span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <input id="search-input" type="search"
+             placeholder="بحث عن منتج..."
+             class="search-input" />
+  
+      <button class="lang-toggle" data-lang="ar">العربية</button>
+      <button class="lang-toggle" data-lang="en">EN</button>
+  
+      <a href="https://wa.me/96894390492" target="_blank" class="whatsapp-btn">
+        تواصل واتساب
+      </a>
+  
+      <a href="cart.html" class="cart-link">
+        🛒 <span id="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+  
+
+  <main class="container">
+    <section class="category-header">
+      <img id="category-banner" class="category-banner" alt="صورة القسم" />
+      <h1 id="category-title"></h1>
+    </section>
+
+    <section class="products-section">
+      <div id="products-grid" class="products-grid">
+        <!-- المنتجات تنضاف ديناميك -->
+      </div>
+      <p id="no-products" class="empty-text" style="display:none;">
+        لا توجد منتجات في هذا القسم حالياً.
+      </p>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <p>© <span id="year"></span> متجر dev</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

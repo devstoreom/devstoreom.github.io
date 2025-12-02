@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>سلة التسوق - متجر dev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo-area">
+    <a href="index.html" class="logo-link">
+      <img src="assets/logo.png" class="logo-img" />
+      <span class="logo-text">متجر dev</span>
+    </a>
+  </div>
+  <div class="header-actions">
+    <button class="lang-toggle" data-lang="ar">العربية</button>
+    <button class="lang-toggle" data-lang="en">EN</button>
+
+    <a href="https://wa.me/96894390492" target="_blank" class="whatsapp-btn">
+      تواصل واتساب
+    </a>
+
+    <a href="cart.html" class="cart-link">
+      🛒 <span id="cart-count">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="container">
+  <section class="cart-section">
+    <h1 data-i18n-ar="سلة التسوق" data-i18n-en="Shopping Cart">سلة التسوق</h1>
+
+    <div id="cart-items"></div>
+
+    <p id="cart-empty" class="empty-text">السلة فارغة حالياً.</p>
+
+    <div id="cart-summary" class="cart-summary" style="display:none;">
+      <div class="cart-total-row">
+        <span>الإجمالي:</span>
+        <span id="cart-total">0 ر.ع</span>
+      </div>
+
+      <button id="checkout-btn" class="btn-primary">
+        إتمام الطلب عبر واتساب
+      </button>
+    </div>
+  </section>
+</main>
+
+<footer class="main-footer">
+  <p>© <span id="year"></span> متجر dev</p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
