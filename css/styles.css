@@ -641,3 +641,61 @@ img {
   color: #6b7280;
   border-top: 1px solid #111827;
 }
+
+
+/* بلوك خيارات المنتج في صفحة المنتج */
+.product-options-block {
+  margin-top: 0.5rem;
+  margin-bottom: 0.35rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.8rem;
+  border: 1px solid #4c1d95;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.product-options-title {
+  font-size: 0.85rem;
+  color: #c4b5fd;
+  margin-bottom: 0.35rem;
+}
+
+.product-option-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  padding: 0.15rem 0;
+}
+
+.product-option-radio input[type="radio"] {
+  accent-color: #a855f7;
+  width: 15px;
+  height: 15px;
+}
+
+.product-option-label {
+  white-space: nowrap;
+}
+
+/* دروب داون الأوبشن لما يكون عددها كبير */
+.product-options-select {
+  width: 100%;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #4c1d95;
+  background: #020617;
+  color: #f9fafb;
+  font-size: 0.85rem;
+}
+
+.product-option-price {
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  direction: ltr; /* عشان الأرقام والعملة تظهر مرتبة */
+}
+
+.product-option-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
