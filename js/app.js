@@ -764,16 +764,20 @@ function renderCartPage() {
 
   const cart = loadCart();
 
+  // 🧹 امسح محتوى السلة في كل الحالات
+  itemsContainer.innerHTML = "";
+
   if (!cart.length) {
+    // سلة فاضية
     if (emptyEl) emptyEl.style.display = "block";
     if (summaryEl) summaryEl.style.display = "none";
+    if (totalEl) totalEl.textContent = "0.000 ر.ع";
     return;
   } else {
     if (emptyEl) emptyEl.style.display = "none";
     if (summaryEl) summaryEl.style.display = "block";
   }
 
-  itemsContainer.innerHTML = "";
   let total = 0;
 
   cart.forEach((item, idx) => {
@@ -856,6 +860,7 @@ function renderCartPage() {
     };
   }
 }
+
 
 function checkoutWhatsApp(cart, total) {
   if (!cart.length) return;
