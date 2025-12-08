@@ -414,14 +414,21 @@ async function initCategoryPage() {
       if (!term) {
         renderProductsGrid(products, key);
       } else {
-        const filtered = products.filter(p =>
-          (p.name_ar || "").includes(term)
-        );
+        const termLower = term.toLowerCase();
+        const filtered = products.filter(p => {
+          const nameAr = (p.name_ar || "").toLowerCase();
+          const nameEn = (p.name_en || "").toLowerCase();
+          return (
+            nameAr.includes(termLower) ||
+            nameEn.includes(termLower)
+          );
+        });
         renderProductsGrid(filtered, key);
       }
     });
   }
 }
+
 
 /* ---------------- صفحة المنتج الواحد ---------------- */
 
