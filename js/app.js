@@ -743,18 +743,18 @@ function buyNow(product, qty, categoryKey, chosenOption) {
 
   const total = (qty * unitPrice).toFixed(3);
 
+  // اسم المنتج + الخيار (لو موجود)
   let lineName = product.name_ar;
-  if (optionLabel) lineName += ` (${optionLabel})`;
+  if (optionLabel) lineName += ` ${optionLabel}`;
 
   const msg =
-    `السلام عليكم\n` +
-    `أرغب في شراء المنتج التالي:\n\n` +
-    `المنتج: ${lineName}\n` +
-    `القسم: ${categoryKey}\n` +
-    `الكمية: ${qty}\n` +
-    `سعر الوحدة: ${unitPrice.toFixed(3)} ر.ع\n` +
-    `الإجمالي: ${total} ر.ع\n\n` +
-    `من موقع متجر dev`;
+    `متجر Dev\n` +
+    `-------------------\n` +
+    `تفاصيل الطلب:\n\n` +
+    `المنتج: ${lineName} ×${qty}\n` +
+    `سعر الوحدة: ${unitPrice.toFixed(3)} ر.ع\n\n` +
+    `المجموع النهائي: ${total} ر.ع\n\n` +
+    `شكراً لاختيارك متجرنا 🌹`;
 
   const url = `https://wa.me/96894390492?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
@@ -872,26 +872,28 @@ function renderCartPage() {
 function checkoutWhatsApp(cart, total) {
   if (!cart.length) return;
 
-  let msg = "السلام عليكم\nأرغب في إتمام الطلب التالي:\n\n";
+  let msg =
+    `متجر Dev\n` +
+    `-------------------\n` +
+    `تفاصيل الطلب:\n\n`;
 
   cart.forEach(item => {
     const pricePer = item.price;
     const lineTotal = pricePer * item.qty;
 
-    msg += `• ${item.name}`;
-    if (item.option) msg += ` (${item.option})`;
-    msg += `\n`;
-    msg += `  الكمية: ${item.qty}\n`;
-    msg += `  سعر الوحدة: ${pricePer.toFixed(3)} ر.ع\n`;
-    msg += `  الإجمالي: ${lineTotal.toFixed(3)} ر.ع\n\n`;
+    let name = item.name;
+    if (item.option) name += ` ${item.option}`;
+
+    msg += `• ${name} ×${item.qty} = ${lineTotal.toFixed(3)} ر.ع\n`;
   });
 
-  msg += `الإجمالي النهائي: ${total.toFixed(3)} ر.ع\n\n`;
-  msg += "من موقع متجر dev";
+  msg += `\nالمجموع النهائي: ${total.toFixed(3)} ر.ع\n\n`;
+  msg += `شكراً لاختيارك متجرنا 🌹`;
 
   const url = `https://wa.me/96894390492?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 }
+
 
 /* ---------------- تهيئة الصفحات ---------------- */
 
