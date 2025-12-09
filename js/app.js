@@ -2,6 +2,12 @@
 const DATA_DIR = "data";
 const ASSETS_DIR = "assets";
 
+/* دالة سعر آمن تمنع NaN */
+function safePrice(val) {
+  const n = parseFloat(val);
+  return Number.isFinite(n) ? n : 0;
+}
+
 /* ---------------- CSV Loader (يدعم فقرات متعددة) ---------------- */
 
 async function loadCSV(path) {
@@ -130,13 +136,16 @@ function parseOptions(product) {
   const raw = product.options || "";
   if (!raw.trim()) return [];
 
-  return raw.split("|").map(part => {
-    const [labelPart, pricePart] = part.split(":");
-    const label = (labelPart || "").trim();
-    const price = parseFloat((pricePart || "").trim());
-    if (!label || isNaN(price)) return null;
-    return { label, price };
-  }).filter(Boolean);
+  return raw
+    .split("|")
+    .map(part => {
+      const [labelPart, pricePart] = part.split(":");
+      const label = (labelPart || "").trim();
+      const price = safePrice((pricePart || "").trim());
+      if (!label || !Number.isFinite(price)) return null;
+      return { label, price };
+    })
+    .filter(Boolean);
 }
 
 /* ---------------- السلة: تخزين محلي ---------------- */
@@ -315,17 +324,16 @@ function renderProductsGrid(products, categoryKey) {
     let oldPriceValue = null;
 
     if (options.length) {
-      // عندنا أوبشن → نستخدم أول خيار كعرض في القائمة
       mainPrice = options[0].price;
     } else {
       const useDiscount =
         p.discount_price_omr && p.discount_price_omr.trim() !== "";
       mainPrice = useDiscount
-        ? parseFloat(p.discount_price_omr)
-        : parseFloat(p.price_omr);
+        ? safePrice(p.discount_price_omr)
+        : safePrice(p.price_omr);
       if (useDiscount) {
         showOldPrice = true;
-        oldPriceValue = parseFloat(p.price_omr);
+        oldPriceValue = safePrice(p.price_omr);
       }
     }
 
@@ -353,7 +361,6 @@ function renderProductsGrid(products, categoryKey) {
     buyBtn.textContent = "شراء الآن";
     buyBtn.addEventListener("click", e => {
       e.stopPropagation();
-      // لو فيه أوبشن نستخدم الأول افتراضياً
       const chosenOption = options.length ? options[0] : null;
       buyNow(p, 1, categoryKey, chosenOption);
     });
@@ -429,7 +436,6 @@ async function initCategoryPage() {
   }
 }
 
-
 /* ---------------- صفحة المنتج الواحد ---------------- */
 
 function renderSingleProduct(product, categoryKey) {
@@ -495,8 +501,8 @@ function renderSingleProduct(product, categoryKey) {
     useDiscount =
       product.discount_price_omr && product.discount_price_omr.trim() !== "";
     mainPrice = useDiscount
-      ? parseFloat(product.discount_price_omr)
-      : parseFloat(product.price_omr);
+      ? safePrice(product.discount_price_omr)
+      : safePrice(product.price_omr);
   }
 
   const price = document.createElement("span");
@@ -507,7 +513,7 @@ function renderSingleProduct(product, categoryKey) {
   if (!options.length && useDiscount) {
     const old = document.createElement("span");
     old.className = "product-old-price";
-    old.textContent = `${parseFloat(product.price_omr).toFixed(3)} ر.ع`;
+    old.textContent = `${safePrice(product.price_omr).toFixed(3)} ر.ع`;
     priceRow.appendChild(old);
   }
 
@@ -529,7 +535,7 @@ function renderSingleProduct(product, categoryKey) {
     readMore.textContent = collapsed ? "إظهار المزيد" : "إظهار أقل";
   });
 
-  // ✅ بلوك الأوبشن — تحت اسم المنتج مباشرة
+  // ✅ بلوك الأوبشن — تحت اسم المنتج
   if (options.length) {
     const optsBlock = document.createElement("div");
     optsBlock.className = "product-options-block";
@@ -574,7 +580,6 @@ function renderSingleProduct(product, categoryKey) {
         wrapper.appendChild(input);
         wrapper.appendChild(textWrap);
         optsBlock.appendChild(wrapper);
-
       });
     } else {
       // B) Dropdown
@@ -584,7 +589,7 @@ function renderSingleProduct(product, categoryKey) {
       options.forEach((opt, idx) => {
         const optionEl = document.createElement("option");
         optionEl.value = opt.label;
-        optionEl.textContent = `${opt.label} — ${opt.price.toFixed(3)} ر.ع`;
+        optionEl.textContent = `${opt.label} - ${opt.price.toFixed(3)} ر.ع`;
         if (idx === 0) optionEl.selected = true;
         select.appendChild(optionEl);
       });
@@ -600,11 +605,9 @@ function renderSingleProduct(product, categoryKey) {
       optsBlock.appendChild(select);
     }
 
-    // ترتيب العناصر: اسم المنتج → الأوبشن → السعر
     details.appendChild(title);
     details.appendChild(optsBlock);
   } else {
-    // ما فيه أوبشن → بس اسم المنتج وبعدين السعر
     details.appendChild(title);
   }
 
@@ -655,7 +658,6 @@ function renderSingleProduct(product, categoryKey) {
   section.appendChild(details);
 }
 
-
 async function initProductPage() {
   const catKey = getParam("cat");
   const id = getParam("id");
@@ -683,19 +685,17 @@ function addToCart(product, qty, categoryKey, chosenOption) {
 
   let optionLabel = null;
   let unitPrice;
-  let isOption = false;
 
   if (options.length) {
     const opt = chosenOption || options[0];
     optionLabel = opt.label;
     unitPrice = opt.price;
-    isOption = true;
   } else {
     const useDiscount =
       product.discount_price_omr && product.discount_price_omr.trim() !== "";
     unitPrice = useDiscount
-      ? parseFloat(product.discount_price_omr)
-      : parseFloat(product.price_omr);
+      ? safePrice(product.discount_price_omr)
+      : safePrice(product.price_omr);
   }
 
   const existing = cart.find(
@@ -713,7 +713,7 @@ function addToCart(product, qty, categoryKey, chosenOption) {
       cat: categoryKey,
       name: product.name_ar,
       price: unitPrice,
-      discount: null, // الأوبشن يتجاهل الخصم القديم
+      discount: null,
       qty,
       image: img,
       option: optionLabel
@@ -737,13 +737,12 @@ function buyNow(product, qty, categoryKey, chosenOption) {
     const useDiscount =
       product.discount_price_omr && product.discount_price_omr.trim() !== "";
     unitPrice = useDiscount
-      ? parseFloat(product.discount_price_omr)
-      : parseFloat(product.price_omr);
+      ? safePrice(product.discount_price_omr)
+      : safePrice(product.price_omr);
   }
 
   const total = (qty * unitPrice).toFixed(3);
 
-  // اسم المنتج + الخيار (لو موجود)
   let lineName = product.name_ar;
   if (optionLabel) lineName += ` ${optionLabel}`;
 
@@ -771,11 +770,10 @@ function renderCartPage() {
 
   const cart = loadCart();
 
-  // 🧹 امسح محتوى السلة في كل الحالات
+  // امسح محتوى السلة دائماً
   itemsContainer.innerHTML = "";
 
   if (!cart.length) {
-    // سلة فاضية
     if (emptyEl) emptyEl.style.display = "block";
     if (summaryEl) summaryEl.style.display = "none";
     if (totalEl) totalEl.textContent = "0.000 ر.ع";
@@ -807,7 +805,7 @@ function renderCartPage() {
     title.className = "cart-item-title";
     title.textContent = titleText;
 
-    const pricePer = item.price;
+    const pricePer = Number.isFinite(item.price) ? item.price : 0;
     const lineTotal = pricePer * item.qty;
     total += lineTotal;
 
@@ -868,7 +866,6 @@ function renderCartPage() {
   }
 }
 
-
 function checkoutWhatsApp(cart, total) {
   if (!cart.length) return;
 
@@ -878,7 +875,7 @@ function checkoutWhatsApp(cart, total) {
     `تفاصيل الطلب:\n\n`;
 
   cart.forEach(item => {
-    const pricePer = item.price;
+    const pricePer = Number.isFinite(item.price) ? item.price : 0;
     const lineTotal = pricePer * item.qty;
 
     let name = item.name;
@@ -893,7 +890,6 @@ function checkoutWhatsApp(cart, total) {
   const url = `https://wa.me/96894390492?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
 }
-
 
 /* ---------------- تهيئة الصفحات ---------------- */
 
