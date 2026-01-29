@@ -721,3 +721,22 @@ img {
 .instagram-btn:hover {
   opacity: 0.85;
 }
+
+.terms-box {
+  margin: 20px 0;
+  padding: 12px;
+  background: #2a1f3d;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.terms-label {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.terms-label input {
+  transform: scale(1.2);
+}

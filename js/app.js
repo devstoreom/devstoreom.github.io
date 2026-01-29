@@ -724,40 +724,12 @@ function addToCart(product, qty, categoryKey, chosenOption) {
 }
 
 function buyNow(product, qty, categoryKey, chosenOption) {
-  const options = parseOptions(product);
+  addToCart(product, qty, categoryKey, chosenOption);
 
-  let optionLabel = null;
-  let unitPrice;
-
-  if (options.length) {
-    const opt = chosenOption || options[0];
-    optionLabel = opt.label;
-    unitPrice = opt.price;
-  } else {
-    const useDiscount =
-      product.discount_price_omr && product.discount_price_omr.trim() !== "";
-    unitPrice = useDiscount
-      ? safePrice(product.discount_price_omr)
-      : safePrice(product.price_omr);
-  }
-
-  const total = (qty * unitPrice).toFixed(3);
-
-  let lineName = product.name_ar;
-  if (optionLabel) lineName += ` ${optionLabel}`;
-
-  const msg =
-    `متجر Dev\n` +
-    `-------------------\n` +
-    `تفاصيل الطلب:\n\n` +
-    `المنتج: ${lineName} ×${qty}\n` +
-    `سعر الوحدة: ${unitPrice.toFixed(3)} ر.ع\n\n` +
-    `المجموع النهائي: ${total} ر.ع\n\n` +
-    `شكراً لاختيارك متجرنا 🌹`;
-
-  const url = `https://wa.me/96894390492?text=${encodeURIComponent(msg)}`;
-  window.open(url, "_blank");
+  // تحويل مباشر لصفحة السلة
+  window.location.href = "cart.html";
 }
+
 
 /* صفحة السلة */
 
@@ -867,6 +839,13 @@ function renderCartPage() {
 }
 
 function checkoutWhatsApp(cart, total) {
+
+  const agree = document.getElementById("agreeTerms");
+if (agree && !agree.checked) {
+  alert("يجب الموافقة على الشروط قبل إتمام الطلب");
+  return;
+}
+
   if (!cart.length) return;
 
   let msg =
@@ -885,7 +864,16 @@ function checkoutWhatsApp(cart, total) {
   });
 
   msg += `\nالمجموع النهائي: ${total.toFixed(3)} ر.ع\n\n`;
+  msg +=
+  `-------------------`;
+  msg +=
+  `\n\nبيانات التحويل البنكي:\n` +
+  `بنك مسقط\n` +
+  `باسم: NABI#######INAI\n` +
+  `رقم التحويل: 99013324\n` +
+  `طرف ثالث ممنوع 🚫\n\n`;
   msg += `شكراً لاختيارك متجرنا 🌹`;
+  
 
   const url = `https://wa.me/96894390492?text=${encodeURIComponent(msg)}`;
   window.open(url, "_blank");
