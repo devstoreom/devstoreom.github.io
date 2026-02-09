@@ -10,46 +10,41 @@
 <body>
   <header class="main-header">
     <div class="logo-area">
-      <img src="assets/logo.png" alt="شعار متجر dev" class="logo-img" />
-      <span class="logo-text">متجر dev</span>
+      <a href="index.html" class="logo-link">
+        <img src="assets/logo.png" alt="شعار متجر dev" class="logo-img" />
+        <span class="logo-text">متجر dev</span>
+      </a>
     </div>
+
     <div class="header-actions">
       <button class="lang-toggle" data-lang="ar">العربية</button>
       <button class="lang-toggle" data-lang="en">EN</button>
-  
+
       <a href="https://wa.me/96894390492" target="_blank" class="whatsapp-btn">
         تواصل واتساب
       </a>
-      
-      <!-- زر انستغرام الجديد -->
+
       <a href="https://instagram.com/dev.store.om" target="_blank" class="instagram-btn">
         انستغرام
       </a>
 
-  
       <a href="cart.html" class="cart-link">
         🛒 <span id="cart-count">0</span>
       </a>
     </div>
   </header>
-  
 
   <main class="container">
     <section class="hero">
-      <h1 data-i18n-ar="أهلاً بك في متجر dev" data-i18n-en="Welcome to dev Store">
-        أهلاً بك في متجر dev
-      </h1>
-      <p data-i18n-ar="اختر القسم المناسب لبدء التسوق."
-         data-i18n-en="Choose a category to start shopping.">
-        اختر القسم المناسب لبدء التسوق.
+      <h1 data-i18n-ar="مرحباً بك في متجر dev" data-i18n-en="Welcome to dev store">مرحباً بك في متجر dev</h1>
+      <p data-i18n-ar="اختر القسم المناسب وتصفح المنتجات" data-i18n-en="Choose a category and browse products">
+        اختر القسم المناسب وتصفح المنتجات
       </p>
     </section>
 
     <section class="categories-section">
       <h2 data-i18n-ar="الأقسام" data-i18n-en="Categories">الأقسام</h2>
-      <div id="categories-grid" class="categories-grid">
-        <!-- الكاتيجوري تنضاف ديناميك من JS -->
-      </div>
+      <div id="categories-grid" class="categories-grid"></div>
     </section>
   </main>
 
