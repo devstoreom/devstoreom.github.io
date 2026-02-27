@@ -163,8 +163,6 @@ function showToast(text = "تمت إضافة المنتج للسلة 🛒") {
   }, 2000);
 }
 
-
-
 /* ---------------- الترجمة (AR / EN) ---------------- */
 function applyLanguage(lang) {
   const html = document.documentElement;
@@ -352,7 +350,6 @@ function renderProductsGrid(products, categoryKey) {
         showToast(); // 👈 هنا نعم
       }
     });
-    
 
     if (p.status === "soldout") {
       buyBtn.disabled = true;
@@ -710,12 +707,11 @@ function renderCartPage() {
     const row = document.createElement("div");
     row.className = "cart-item";
     // الانتقال لصفحة المنتج عند الضغط على الكرت
-row.addEventListener("click", () => {
-  window.location.href = `product.html?cat=${encodeURIComponent(
-    item.cat
-  )}&id=${encodeURIComponent(item.id)}`;
-});
-
+    row.addEventListener("click", () => {
+      window.location.href = `product.html?cat=${encodeURIComponent(
+        item.cat
+      )}&id=${encodeURIComponent(item.id)}`;
+    });
 
     const imgWrap = document.createElement("div");
     imgWrap.className = "cart-item-img-wrapper";
@@ -756,14 +752,13 @@ row.addEventListener("click", () => {
     qtyInput.value = item.qty;
     qtyInput.addEventListener("click", e => e.stopPropagation());
 
-qtyInput.addEventListener("change", e => {
-  e.stopPropagation();
-  const newQty = parseInt(e.target.value) || 1;
-  item.qty = newQty;
-  saveCart(cart);
-  renderCartPage();
-});
-
+    qtyInput.addEventListener("change", e => {
+      e.stopPropagation();
+      const newQty = parseInt(e.target.value) || 1;
+      item.qty = newQty;
+      saveCart(cart);
+      renderCartPage();
+    });
 
     qtyRow.appendChild(qtyInput);
 
@@ -793,6 +788,21 @@ qtyInput.addEventListener("change", e => {
   if (checkoutBtn) {
     checkoutBtn.onclick = () => checkoutWhatsApp(cart, total);
   }
+}
+
+/* ✅ إضافة دوال واتساب الرسمية (بدون ما نغير باقي الكود) */
+function normalizeInternationalPhone(input) {
+  let s = String(input ?? "").trim();
+  if (s.startsWith("+")) s = s.slice(1);
+  if (s.startsWith("00")) s = s.slice(2);
+  s = s.replace(/\D/g, "");
+  return s;
+}
+
+function buildWhatsAppSendUrl(phone, message) {
+  const cleanPhone = normalizeInternationalPhone(phone);
+  const encodedText = encodeURIComponent(String(message ?? ""));
+  return `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodedText}`;
 }
 
 function checkoutWhatsApp(cart, total) {
@@ -832,7 +842,10 @@ function checkoutWhatsApp(cart, total) {
     `طرف ثالث ممنوع 🚫\n\n`;
   msg += `شكراً لاختيارك متجرنا 🌹`;
 
-  const url = `https://wa.me/96894390492?text=${encodeURIComponent(msg)}`;
+  // ✅ الرابط الرسمي + ترميز صحيح + رقم دولي بدون +
+  const url = buildWhatsAppSendUrl("96894390492", msg);
+
+  // فتح الرابط (يفضل يكون نتيجة ضغط زر لتجنب حظر Popup)
   window.open(url, "_blank");
 }
 
@@ -939,7 +952,6 @@ function confirmOptionModal() {
     addToCart(modalProduct, 1, modalCategoryKey, chosenOption);
     showToast(); // 👈 هنا
   }
-  
+
   closeOptionModal();
-  
 }
